@@ -7,6 +7,7 @@ using PropertyChanged;
 using Xamarin.Forms;
 using XLabs.Platform.Services.Media;
 using Vegeta.Models;
+using Wiggin.Drawing;
 
 namespace Vegeta
 {
@@ -78,7 +79,9 @@ namespace Vegeta
 					DefaultCamera = CameraDevice.Front,
 					MaxPixelDimension = 300
 				});
-				ImgSource = ImageSource.FromStream(() => _mediaFile.Source);
+				var transformed = await DependencyService.Get<IPhotoTransformer>().TransformPhotoAsync(ImagingOperations.ConvertToGreyscale, _mediaFile.Path);
+//				ImgSource = ImageSource.FromStream(() => _mediaFile.Source);
+				ImgSource = ImageSource.FromStream(() => transformed );
 
 			} catch (Exception e) {
 				System.Diagnostics.Debug.WriteLine ("The task was canceled");

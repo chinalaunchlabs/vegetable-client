@@ -9,6 +9,8 @@ using XLabs.Ioc;
 using XLabs.Platform.Services.Media;
 using Vegeta;
 
+using Wiggin.Drawing.iOS;
+
 namespace Vegetoo.iOS
 {
 	[Register ("AppDelegate")]
