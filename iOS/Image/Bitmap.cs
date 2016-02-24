@@ -5,6 +5,7 @@ using CoreGraphics;
 using Xamarin.Forms;
 using Wiggin.Drawing;
 using Wiggin.Drawing.iOS;
+using System.Drawing;
 
 [assembly:Xamarin.Forms.Dependency(typeof(Bitmap))]
 namespace Wiggin.Drawing.iOS
@@ -57,6 +58,19 @@ namespace Wiggin.Drawing.iOS
 			} catch (Exception e) {
 				Console.WriteLine (e.Message);
 			}
+		}
+
+		public UIImage ResizeImage(float maxWidth, float maxHeight) {
+			var maxResizeFactor = Math.Max (maxWidth / width, maxHeight / height);
+			if (maxResizeFactor > 1)
+				return image;
+			var newWidth = maxResizeFactor * width;
+			var newHeight = maxResizeFactor * height;
+			UIGraphics.BeginImageContext (new SizeF (newWidth, newHeight));
+			image.Draw (new RectangleF (0, 0, newWidth, newHeight));
+			var resultImage = UIGraphics.GetImageFromCurrentImageContext ();
+			UIGraphics.EndImageContext ();
+			return resultImage;
 		}
 
 		public UIImage ToImage() {

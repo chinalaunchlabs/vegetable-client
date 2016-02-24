@@ -23,6 +23,14 @@ namespace Wiggin.Drawing.iOS
 				return bitmap.ToImage().AsJPEG().AsStream();
 			});
 		}
+
+		public Task<Stream> ResizePhotoAsync(float maxWidth, float maxHeight, string imagePath) {
+			return Task.Run (() => {
+				var bitmap = new Bitmap();
+				bitmap.LoadImage(new UIKit.UIImage(imagePath));
+				return bitmap.ResizeImage(maxWidth, maxHeight).AsJPEG().AsStream();
+			});
+		}
 	}
 }
 

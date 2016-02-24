@@ -54,7 +54,9 @@ namespace Vegeta
 			get {
 				return new Command (async (blah) => {
 					// convert stream to bytes in preparation for base64 conversion
-					byte[] inBase64 = _mediaFile.Source.ToByteArray();
+					var resized = await DependencyService.Get<IPhotoTransformer>().ResizePhotoAsync(50, 50, _mediaFile.Path);
+
+					byte[] inBase64 = resized.ToByteArray();
 					string outBase64 = inBase64.Base64Convert();
 
 					_vegetable.Photo = new Photo {
@@ -79,9 +81,10 @@ namespace Vegeta
 					DefaultCamera = CameraDevice.Front,
 					MaxPixelDimension = 300
 				});
-				var transformed = await DependencyService.Get<IPhotoTransformer>().TransformPhotoAsync(ImagingOperations.ConvertToGreyscale, _mediaFile.Path);
-//				ImgSource = ImageSource.FromStream(() => _mediaFile.Source);
-				ImgSource = ImageSource.FromStream(() => transformed );
+//				var transformed = await DependencyService.Get<IPhotoTransformer>().TransformPhotoAsync(ImagingOperations.ConvertToGreyscale, _mediaFile.Path);
+//				var resized = await DependencyService.Get<IPhotoTransformer>().ResizePhotoAsync(50, 50, _mediaFile.Path);
+				ImgSource = ImageSource.FromStream(() => _mediaFile.Source);
+//				ImgSource = ImageSource.FromStream(() => resized );
 
 			} catch (Exception e) {
 				System.Diagnostics.Debug.WriteLine ("The task was canceled");

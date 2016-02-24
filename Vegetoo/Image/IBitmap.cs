@@ -17,6 +17,13 @@ namespace Wiggin.Drawing
 		void TransformImage(Func<byte, byte, byte, double> pixelOperation);
 
 		/// <summary>
+		/// Resizes the image, keeping the aspect ratio of original.
+		/// </summary>
+		/// <param name="maxWidth">Max width.</param>
+		/// <param name="maxHeight">Max height.</param>
+		T ResizeImage(float maxWidth, float maxHeight);
+
+		/// <summary>
 		/// Converts the transformed pixel data back to the native image type.
 		/// </summary>
 		/// <returns>The image.</returns>
