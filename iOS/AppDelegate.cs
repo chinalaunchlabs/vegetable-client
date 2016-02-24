@@ -11,7 +11,7 @@ using Vegeta;
 
 using Wiggin.Drawing.iOS;
 
-namespace Vegetoo.iOS
+namespace Vegeta.iOS
 {
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : XFormsApplicationDelegate

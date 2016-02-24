@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace Vegetoo.iOS
+namespace Vegeta.iOS
 {
 	public class Application
 	{
